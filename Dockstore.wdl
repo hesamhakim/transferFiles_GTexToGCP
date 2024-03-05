@@ -1,5 +1,5 @@
 version 1.0
-task copyBam {
+task bam_gc_uri {
     input {
         File drs_uri_bam
         String file_bam_name
@@ -12,11 +12,11 @@ task copyBam {
     }
 
 	command {
-		bash -c "echo cp ~{drs_uri_bam} ~{file_bam_name}"
+		bash -c "echo ~{drs_uri_bam}"
 	}
 
 	output {
-		File totalBam = "~{file_bam_name}"
+		String BamGC = "echo ~{drs_uri_bam}"
 	}
 
 	runtime {
@@ -26,24 +26,24 @@ task copyBam {
 	}
 
 	meta {
-		author: "jlanej"
+		author: "hesamhakim"
 	}
 }
 
-workflow copyBamWorkflow {
+workflow bam_gc_uri_Workflow {
     input {
         File drs_uri_bam
         String file_bam_name
         Int mem_gb
     }
-	call copyBam { 
+	call bam_gc_uri { 
 		input:
 	 drs_uri_bam=drs_uri_bam,
 	 file_bam_name=file_bam_name,
 	 mem_gb=mem_gb 
 	}
 	output {
-		File output_bam=copyBam.totalBam
+		String output_bam=bam_gc_uri.BamGC
 	}
 }
 
