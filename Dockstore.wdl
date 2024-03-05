@@ -12,11 +12,11 @@ task bam_gc_uri {
     }
 
 	command {
-		bash -c "echo ~{drs_uri_bam}"
+		${drs_uri_bam}
 	}
 
 	output {
-		String BamGC = "echo ~{drs_uri_bam}"
+		File BamGC=${drs_uri_bam}
 	}
 
 	runtime {
@@ -43,7 +43,7 @@ workflow bam_gc_uri_Workflow {
 	 mem_gb=mem_gb 
 	}
 	output {
-		String output_bam=bam_gc_uri.BamGC
+		File output_bam=bam_gc_uri.BamGC
 	}
 }
 
