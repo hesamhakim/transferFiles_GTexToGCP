@@ -12,11 +12,11 @@ task bam_gc_uri {
     }
 
 	command {
-		~{drs_uri_bam}
+		bash -c "~{drs_uri_bam}"
 	}
 
 	output {
-		File BamGC=~{drs_uri_bam}
+		File BamGC="~{drs_uri_bam}"
 	}
 
 	runtime {
