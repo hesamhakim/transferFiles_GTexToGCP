@@ -1,11 +1,8 @@
 version 1.0
-task viewRegion {
+task copyBam {
     input {
         File drs_uri_bam
-        File drs_uri_bai
-        File mitoBed
         String file_bam_name
-        ##String region
         Int mem_gb
         Int addtional_disk_size = 100 
         Int machine_mem_size = 15
@@ -15,11 +12,11 @@ task viewRegion {
     }
 
 	command {
-		bash -c "echo samtools; samtools view ~{drs_uri_bam} -L ~{mitoBed} -b -o ~{file_bam_name}_chrM.bam"
+		bash -c "echo cp ~{drs_uri_bam} ~{file_bam_name}"
 	}
 
 	output {
-		File extractedBam = "~{file_bam_name}_chrM.bam"
+		File totalBam = "~{file_bam_name}"
 	}
 
 	runtime {
@@ -33,26 +30,20 @@ task viewRegion {
 	}
 }
 
-workflow extractRegionWorkflow {
+workflow copyBamWorkflow {
     input {
         File drs_uri_bam
-        File drs_uri_bai
-        File mitoBed
         String file_bam_name
-        ##String region
         Int mem_gb
     }
-	call viewRegion { 
+	call copyBam { 
 		input:
 	 drs_uri_bam=drs_uri_bam,
-	 drs_uri_bai=drs_uri_bai,
 	 file_bam_name=file_bam_name,
-	 mitoBed=mitoBed,
-	 ##region=region,
 	 mem_gb=mem_gb 
 	}
 	output {
-		File output_bam=viewRegion.extractedBam
+		File output_bam=copyBam.totalBam
 	}
 }
 
