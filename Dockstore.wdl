@@ -2,7 +2,7 @@ version 1.0
 task bam_gc_uri {
     input {
         File drs_uri_bam
-        String file_bam_name
+        #String file_bam_name
         Int mem_gb
         Int addtional_disk_size = 100 
         Int machine_mem_size = 15
@@ -12,7 +12,7 @@ task bam_gc_uri {
     }
 
 	command {
-		bash -c "~{drs_uri_bam}"
+		bash -c cp "~{drs_uri_bam} ."
 	}
 
 	output {
@@ -33,13 +33,13 @@ task bam_gc_uri {
 workflow bam_gc_uri_Workflow {
     input {
         File drs_uri_bam
-        String file_bam_name
+        #String file_bam_name
         Int mem_gb
     }
 	call bam_gc_uri { 
 		input:
 	 drs_uri_bam=drs_uri_bam,
-	 file_bam_name=file_bam_name,
+	 #file_bam_name=file_bam_name,
 	 mem_gb=mem_gb 
 	}
 	output {
