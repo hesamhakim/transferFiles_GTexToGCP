@@ -12,7 +12,7 @@ task bam_gc_uri {
     }
 
 	command {
-		bash -c cp "~{drs_uri_bam} ."
+		bash -c "~{drs_uri_bam}"
 	}
 
 	output {
